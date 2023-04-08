@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "hackathon-n-factorial"
+version = "0.1.0"
+description = ""
+authors = ["LANneeer <0penguin@mail.ru>"]
+readme = "README.md"
+packages = [{include = "hackathon_n_factorial"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = ">=3.2,<4.0"
+aiogram = "^2.25.1"
+cohere = "^4.1.4"
+django-environ = "^0.10.0"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
