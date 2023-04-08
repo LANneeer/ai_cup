@@ -1,0 +1,24 @@
+<blockquote id="{{comment.id}}">
+  <p class="comment-description">{{comment.description}}</p>
+  <small class="comment-author">by {{comment.user.username}}</small>
+
+  {% if user.is_authenticated %}
+    <button class="reply-button" onclick="handleReplyButton({{comment.id}})">Reply</button>
+  {% endif %}
+
+  <blockquote id="reply-form-container-{{comment.id}}" class="reply-form-container">
+    <form method="POST" action="/reply" class="reply-form">
+      {% csrf_token %}
+      <input type="hidden" name="question" value="{{question.id}}"/>
+      <input type="hidden" name="parent" value="{{comment.id}}"/>
+      {{reply_form.description}}
+      <button type="button" class="reply-form-cancel-button" onclick="handleCancelReply({{comment.id}})">Cancel</button>
+      <input type="submit" class="reply-form-submit-button" value="Reply"/>
+    </form>
+  </blockquote>
+
+  {% for children in comment.get_comments %}
+  {% include 'comment.html' with comment=children %}
+  {% endfor %}
+
+</blockquote>

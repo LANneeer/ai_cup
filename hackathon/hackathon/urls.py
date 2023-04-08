@@ -15,9 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from home.views import HomeView
+from home import views
+from ai.views import AiView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', HomeView.as_view(), name='chat'),
+    path('ai/', AiView.as_view(), name='ai'),
+    path('register', views.registerPage, name='register'),
+    path('login', views.loginPage, name='login'),
+    path('logout', views.logoutPage, name='logout'),
+    path('', views.homePage, name='index'),
+    path('new-question', views.newQuestionPage, name='new-question'),
+    path('question/<int:id>', views.questionPage, name='question'),
+    path('reply', views.replyPage, name='reply')
 ]
