@@ -7,5 +7,5 @@
 `sudo docker-compose up -d`
 2. Проверьте состояние контейнеров, выполнив следующую команду:
 `sudo docker-compose ps`
-3. Вы должны увидеть два запущенных контейнера: 
-`yourprojectname_bot` и `yourprojectname_db`.
+3. Вы должны увидеть три запущенных контейнера: 
+`app_1`, `db_1` и `bot_1`.
