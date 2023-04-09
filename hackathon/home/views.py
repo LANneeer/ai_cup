@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, TemplateView
-
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Question, Comment
+from django.shortcuts import render, redirect
+
 from .forms import RegisterUserForm, LoginForm, NewQuestionForm, NewCommentForm, NewReplyForm
+from .models import Question, Comment
 
 
 def registerPage(request):
@@ -26,6 +25,7 @@ def registerPage(request):
     }
     return render(request, 'register.html', context)
 
+
 def loginPage(request):
     form = LoginForm()
 
@@ -43,10 +43,12 @@ def loginPage(request):
     context = {'form': form}
     return render(request, 'login.html', context)
 
+
 @login_required(login_url='register')
 def logoutPage(request):
     logout(request)
     return redirect('login')
+
 
 @login_required(login_url='register')
 def newQuestionPage(request):
@@ -59,7 +61,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
-                return redirect('/question/'+str(question.id))
+                return redirect('/question/' + str(question.id))
         except Exception as e:
             print(e)
             raise
@@ -67,12 +69,14 @@ def newQuestionPage(request):
     context = {'form': form}
     return render(request, 'new-question.html', context)
 
+
 def homePage(request):
     questions = Question.objects.all().order_by('-created_at')
     context = {
         'questions': questions
     }
     return render(request, 'homepage.html', context)
+
 
 def questionPage(request, id):
     comment_form = NewCommentForm()
@@ -86,7 +90,7 @@ def questionPage(request, id):
                 comment.user = request.user
                 comment.question = Question(id=id)
                 comment.save()
-                return redirect('/question/'+str(id)+'#'+str(comment.id))
+                return redirect('/question/' + str(id) + '#' + str(comment.id))
         except Exception as e:
             print(e)
             raise
@@ -113,7 +117,7 @@ def replyPage(request):
                 reply.question = Question(id=question_id)
                 reply.parent = Comment(id=parent_id)
                 reply.save()
-                return redirect('/question/'+str(question_id)+'#'+str(reply.id))
+                return redirect('/question/' + str(question_id) + '#' + str(reply.id))
         except Exception as e:
             print(e)
             raise

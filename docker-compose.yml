@@ -1,10 +1,16 @@
 version: '3.7'
 
+networks:
+  default:
+    driver: bridge
+
 services:
   app:
     build:
       dockerfile: ./Dockerfile
       context: ./
+    networks:
+      - default
     image:
       hackathon
     ports:
@@ -14,7 +20,9 @@ services:
       - db
   db:
     image: postgres
-    hostname: local-postgres
+    hostname: db
+    networks:
+      - default
     environment:
       DB_USER: hackathon
       DB_PASSWORD: password
