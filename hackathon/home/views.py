@@ -59,6 +59,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
+                return redirect('/question/'+str(question.id))
         except Exception as e:
             print(e)
             raise
