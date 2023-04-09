@@ -1,8 +1,10 @@
 version: '3.7'
 
 networks:
-  default:
+  my_network:
     driver: bridge
+    ipam:
+      driver: default
 
 services:
   app:
@@ -10,7 +12,9 @@ services:
       dockerfile: ./Dockerfile
       context: ./
     networks:
-      - default
+      my_network:
+        aliases:
+          - app
     image:
       hackathon
     ports:
@@ -22,7 +26,9 @@ services:
     image: postgres
     hostname: db
     networks:
-      - default
+      my_network:
+        aliases:
+          - db
     environment:
       DB_USER: hackathon
       DB_PASSWORD: password
@@ -31,6 +37,10 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: ./
+    networks:
+      my_network:
+        aliases:
+          - bot
     image:
       local-bot
     ports:

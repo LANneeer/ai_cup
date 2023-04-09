@@ -13,12 +13,12 @@ dp = BotConfig.dp
 async def hello(message: types.Message, state: FSMContext):
     user = User.objects.filter(Q(username=message.from_user.username) | Q(username=message.from_user.id))
     if user:
-        await message.answer(text='<b>Привет! Это бот путеводитель e-gov</b>\n'
-                                  'Вы можете задать вопрос по вашей услуге или написать этот же вопрос у нас на сайте:\n'
-                                  'site_url'
+        await message.answer(text='<b>Привет! Это бот обсуждения в thread</b>\n'
+                                  'Вы можете задать любой вопрос и ИИ на него ответит, а так же можете ответить на вопрос и получить фидбэк от ИИ:\n'
+                                  'https://b9f2-89-250-83-36.ngrok-free.app/'
                              )
     else:
-        await message.answer(text='<b>Привет! Это бот путеводитель e-gov</b>\n'
+        await message.answer(text='<b>Привет! Это бот обсуждения в thread</b>\n'
                                   'Пред использованием бота зарегистрируйтесь написав ваш пароль\n\n'
                                   'Введите пароль для вашего аккаунта:',
                              )
@@ -34,5 +34,5 @@ async def registration(message: types.Message, state: FSMContext):
     User.objects.create(username=username, password=message.text)
     await message.answer(text='<b>Вы успешно зарегистрировались!</b>\n'
                               'Вы можете задать вопрос по вашей услуге или написать этот же вопрос у нас на сайте:\n'
-                              'site_url'
+                              'https://b9f2-89-250-83-36.ngrok-free.app/'
                          )
