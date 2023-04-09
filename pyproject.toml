@@ -17,6 +17,7 @@ psycopg2-binary = "^2.9.6"
 libsass = "^0.22.0"
 django-compressor = "^4.3.1"
 django-sass-processor = "^1.2.2"
+openai = "^0.27.4"
 
 
 [build-system]
