@@ -1,7 +1,7 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
+from ai.utils import send_question
 from .forms import RegisterUserForm, LoginForm, NewQuestionForm, NewCommentForm, NewReplyForm
 from .models import Question, Comment
 
@@ -61,6 +61,12 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user
                 question.save()
+                answer = send_question(question.title)
+                Comment.objects.create(
+                    author=request.user,
+                    question=question,
+                    description=answer
+                )
                 return redirect('/question/' + str(question.id))
         except Exception as e:
             print(e)
@@ -90,6 +96,13 @@ def questionPage(request, id):
                 comment.user = request.user
                 comment.question = Question(id=id)
                 comment.save()
+                answer = send_question(comment.description)
+                Comment.objects.create(
+                    author=request.user,
+                    question=comment.question,
+                    parent=comment,
+                    description=answer
+                )
                 return redirect('/question/' + str(id) + '#' + str(comment.id))
         except Exception as e:
             print(e)
@@ -117,6 +130,13 @@ def replyPage(request):
                 reply.question = Question(id=question_id)
                 reply.parent = Comment(id=parent_id)
                 reply.save()
+                answer = send_question(reply.description)
+                Comment.objects.create(
+                    author=request.user,
+                    question=Question(id=question_id),
+                    parent=reply,
+                    description=answer
+                )
                 return redirect('/question/' + str(question_id) + '#' + str(reply.id))
         except Exception as e:
             print(e)
