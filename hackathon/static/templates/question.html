@@ -10,7 +10,7 @@
 <div class="comments-container">
   <h4 class="comments-container-heading">comments</h4>
 
-  {% if not question.comments.all %}
+  {% if not question.comment_set.all %}
     <p class="no-comments-text">No comments yet</p>
   {% else %}
     {% for comment in question.get_comments %}

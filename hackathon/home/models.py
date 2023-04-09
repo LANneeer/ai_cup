@@ -27,7 +27,7 @@ class Question(models.Model):
         return self.title
 
     def get_comments(self):
-        return self.comments.filter(parent=None)
+        return self.comment_set.filter(parent=None)
 
 
 class Comment(models.Model):
