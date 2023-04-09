@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "hackathon-n-factorial"
+name = "hackathon"
 version = "0.1.0"
 description = ""
 authors = ["LANneeer <0penguin@mail.ru>"]
 readme = "README.md"
-packages = [{include = "hackathon_n_factorial"}]
+packages = [{include = "hackathon", from = "hackathon"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"

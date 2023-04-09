@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    image:
+      hackathon
+    ports:
+      - "8000:8000"
+    command: poetry run hackathon/manage.py runserver 0.0.0.0:8000
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: hackathon
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ai_cup
+  bot:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    image:
+      local-bot
+    ports:
+      - "3001:3001"
+    command: poetry run hackathon/manage.py runbot

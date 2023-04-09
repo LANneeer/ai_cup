@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'hackathon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ai_cup',
-        'USER': 'hackathon',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('DB_PORT')
     }
 }
 
