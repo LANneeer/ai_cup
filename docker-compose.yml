@@ -10,12 +10,15 @@ services:
     ports:
       - "8000:8000"
     command: poetry run hackathon/manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
   db:
     image: postgres
+    hostname: local-postgres
     environment:
-      POSTGRES_USER: hackathon
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ai_cup
+      DB_USER: hackathon
+      DB_PASSWORD: password
+      DB_NAME: ai_cup
   bot:
     build:
       dockerfile: ./Dockerfile
@@ -25,3 +28,5 @@ services:
     ports:
       - "3001:3001"
     command: poetry run hackathon/manage.py runbot
+    depends_on:
+      - db
